@@ -115,6 +115,8 @@ enum {
 #define AXP806_CLDO2_V_CTRL		0x25
 #define AXP806_CLDO3_V_CTRL		0x26
 #define AXP806_VREF_TEMP_WARN_L		0xf3
+#define AXP806_BUS_ADDR_EXT		0xfe
+#define AXP806_REG_ADDR_EXT		0xff
 
 /* Interrupt */
 #define AXP152_IRQ1_EN			0x40
@@ -226,6 +228,10 @@ enum {
 #define AXP20X_OCV_MAX			0xf
 
 /* AXP22X specific registers */
+#define AXP22X_PMIC_ADC_H		0x56
+#define AXP22X_PMIC_ADC_L		0x57
+#define AXP22X_TS_ADC_H			0x58
+#define AXP22X_TS_ADC_L			0x59
 #define AXP22X_BATLOW_THRES1		0xe6
 
 /* AXP288 specific registers */
@@ -524,35 +530,6 @@ struct axp20x_dev {
 	struct mfd_cell                 *cells;
 	const struct regmap_config	*regmap_cfg;
 	const struct regmap_irq_chip	*regmap_irq_chip;
-};
-
-#define BATTID_LEN				64
-#define OCV_CURVE_SIZE			32
-#define MAX_THERM_CURVE_SIZE	25
-#define PD_DEF_MIN_TEMP			0
-#define PD_DEF_MAX_TEMP			55
-
-struct axp20x_fg_pdata {
-	char battid[BATTID_LEN + 1];
-	int design_cap;
-	int min_volt;
-	int max_volt;
-	int max_temp;
-	int min_temp;
-	int cap1;
-	int cap0;
-	int rdc1;
-	int rdc0;
-	int ocv_curve[OCV_CURVE_SIZE];
-	int tcsz;
-	int thermistor_curve[MAX_THERM_CURVE_SIZE][2];
-};
-
-struct axp20x_chrg_pdata {
-	int max_cc;
-	int max_cv;
-	int def_cc;
-	int def_cv;
 };
 
 struct axp288_extcon_pdata {
